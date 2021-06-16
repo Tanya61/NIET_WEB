@@ -1,6 +1,6 @@
 let fs = require("fs");
 //object destructing
-let { applySFlag, applyBFlag, applyNFlag, applyBflag} = require("./NSBFlag");
+let { applySflag, applyBflag, applyNflag} = require("./NSBFlag");
 let input = process.argv.slice(2);
 
 let files =[];
@@ -27,19 +27,19 @@ for(let i=0;i<files.length;i++){
 
 if(flags.includes("-s")){
     //data s flagged
-    data = applySFlag(data);
+    data = applySflag(data);
 }
 
 if(flags.includes("-n")&&flags.includes("-b")){
     if(flags.indexOf("-n")<flags.indexOf("-b")){
-        data = applyNFlag(data);
+        data = applyNflag(data);
     }
     else{
-        data = applyBFlag(data);
+        data = applyBflag(data);
     }
 }
 else if(flags.includes("-n")){
-    data = applyNFlag(data);
+    data = applyNflag(data);
 }
 else if(flags.includes("-b")){
     data = applyBflag(data);

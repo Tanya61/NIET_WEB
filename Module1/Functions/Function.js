@@ -26,5 +26,3 @@ sayHi();
 let sayHi = function(){
     console.log("Function says Hiii !!!");
 }
-
-// sayHi();

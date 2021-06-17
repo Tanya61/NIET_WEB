@@ -12,8 +12,11 @@ function getMatchDetails(matchLink){
     //Async
     request(matchLink,function(error, response, html){
         count--;
-        console.log("Inside Callback ${count}");
+        console.log(`Inside Callback ${count}`);
         processHTML(html);
+        if(count==0){
+            console.table(leaderboard);
+        }
     })
     
 }
@@ -51,7 +54,7 @@ function processHTML(html){
         }
         
     }
-    console.log("######################################");
+    //console.log("######################################");
 }
 
 function processLeaderBoard(teamName, BatsmanName, runs, balls, fours, sixes, strikeRate){

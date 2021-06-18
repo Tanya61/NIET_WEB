@@ -1,6 +1,8 @@
 const puppeteer = require("puppeteer");
 let id = "mifif53635@beydent.com";
 let pw = "12347890";
+let solutions = require("./solutions");
+let code;
 let tab;
 //puppeteer functions => promisified functions
 //open a browser
@@ -70,8 +72,101 @@ browserOpenPromise.then(function(browserInstance){
     return combinedPromise; //Promise<Pending>
 })
 .then(function(allQuesLinks){
-    console.log(allQuesLinks);
+    let oneQuesSolvePromise = solveQues(allQuesLinks[0]);
+    return oneQuesSolvePromise;
+})
+.then(function(){
+    console.log("One Question Solved!!");
 })
 .catch(function(err){
+    console.log("Inside catch");
     console.log(err);
-})
+});
+
+function waitAndClick(selector){
+    return new Promise(function(scb,fcb){
+        let waitPromise = tab.waitForSelector(selector, {visible:true});
+        waitPromise
+        .then(function(){
+            let clickPromise = tab.click(selector);
+            return clickPromise;
+        })
+        .then(function(){
+            scb();
+        })
+        .catch(function(error){
+            fcb();
+        });
+    });
+}
+
+function solveQues(quesLink){
+    return new Promise(function(scb,fcb){
+        let completeLink = "https://www.hackerrank.com"+quesLink;
+        let gotoQuesPromise = tab.goto(completeLink);
+        gotoQuesPromise.then(function(){
+            let quesNamePromise = tab.$('.ui-icon-label.page-label');
+            return quesNamePromise;
+        })
+        .then(function(quesNameH1Tag){
+            let quesPromise = tab.evaluate(function(elem){ return elem.textContent;} , quesNameH1Tag);
+            return quesPromise
+        })
+        .then(function(quesName){
+            console.log(quesName);
+            for(let i=0;i<solutions.length;i++){
+                if(solutions[i].name == quesName){
+                    code = solutions[i].sol;
+                }
+            }
+            let waitAndClickPromise = waitAndClick('.checkbox-input');
+            return waitAndClickPromise;
+        })
+        .then(function(){
+            let waitPromise = tab.waitForTimeout(1000);
+            return waitPromise;
+        })
+        .then(function(){
+            let codeTypePromise = tab.type('#input-1', code);
+            return codeTypePromise;
+        })
+        .then(function(){
+            let ctrlKeyDown = tab.keyboard.down("Control");
+            return ctrlKeyDown;
+        })
+        .then(function(){
+            let aKeyPress = tab.keyboard.press("a");
+            return aKeyPress;
+        })
+        .then(function(){
+            let xKeyPress = tab.keyboard.press("x");
+            return xKeyPress;
+        })
+        .then(function(){
+            let codeBoxClickedPromise = tab.click('.monaco-scrollable-element.editor-scrollable.vs');
+            return codeBoxClickedPromise;
+        })
+        .then(function(){
+            let aKeyPress = tab.keyboard.press("a");
+            return aKeyPress;
+        })
+        .then(function(){
+            let vKeyPress = tab.keyboard.press("v");
+            return vKeyPress;
+        })
+        .then(function(){
+            let ctrlKeyUp = tab.keyboard.up("Control");
+            return ctrlKeyUp;
+        })
+        .then(function(){
+            let submitButtonClicked = tab.click('.ui-btn.ui-btn-normal.hr-monaco-submit');
+            return submitButtonClicked;
+        })
+        .then(function(){
+            scb();
+        })
+        .catch(function(err){
+            fcb(err);
+        })
+    })
+}

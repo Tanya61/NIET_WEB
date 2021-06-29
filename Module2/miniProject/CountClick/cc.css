@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
+div{
+    height: 220px;
+    width: 220px;
+    margin: 100px auto;
+    background-color: rgb(216, 35, 35);
+    border-color: black;
+    border-width: 0.5rem;
+    cursor: pointer;
+}
+div:hover{
+    box-shadow: 0 0 30px gray;
+}
+h1{
+    text-align: center;
+    margin-top: 100px;
+}

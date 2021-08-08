@@ -107,6 +107,9 @@ for(let i=1;i<=100;i++){
             formula: undefined,
             upstream : [],
             downstream : [],
+            align : "left",
+            color : "black",
+            bgColor : "white",
         };
 
         let cellDiv = document.createElement("div");

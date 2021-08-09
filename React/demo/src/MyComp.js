@@ -3,15 +3,32 @@ import React from "react";
 
 class MyComp extends React.Component{
     state = {
-        someNumber : 2
+        someNumber : 0
     }
 
     render = () => {
+        console.log("Rerendered");
         return(
             <div>
-            <h1> HELLO THIS IS CLASS - BASED COMPONENT</h1>
-            <h1>{this.state.someNumber}</h1>
+                <button 
+                    onClick = {() =>{
+                        this.setState({someNumber : this.state.someNumber+1});
+                    }}
+                >
+                    increment
+                </button>
+
+                
+                <button 
+                    onClick = {() =>{
+                        this.setState({someNumber : this.state.someNumber-1});
+                    }}
+                >
+                    decrement
+                </button>
+                <h1>{this.state.someNumber}</h1>
             </div>
+            
         );
     };
 }

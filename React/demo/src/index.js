@@ -9,8 +9,15 @@ import MyComp from './MyComp'
 
 
 ReactDOM.render(
-                <MyComp />, // ek component
-                document.querySelector("#root") // ek jgh jha us component ko dikhana hh
-                );
+        <div>
+        <MyComp />
+        <MyComp />
+        <MyComp />
+        <MyComp />
+        <MyComp />
+        </div>,
+       
+       document.querySelector("#root") // ek jgh jha us component ko dikhana hh
+);
 
 

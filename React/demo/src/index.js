@@ -1,12 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+//Libraries
 
-import App from './App';
+import React from 'react'; // creation logic 
+
+import ReactDOM from 'react-dom'; // render logic
+
+//App is a component we have imported
+import MyComp from './MyComp'
 
 
 ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+                <MyComp />, // ek component
+                document.querySelector("#root") // ek jgh jha us component ko dikhana hh
+                );
 
 

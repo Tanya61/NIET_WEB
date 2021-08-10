@@ -1,0 +1,10 @@
+*{
+    box-sizing: border-box;
+}
+
+.input-box{
+    background-color: #2980b9;
+    border: none;
+    color: white;
+    outline: none;
+}

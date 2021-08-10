@@ -32,7 +32,15 @@ class App extends React.Component {
       <ul>
         {
           this.state.tasks.map((el)=>{
-            return <li>{el}</li>;
+            return <li>{el}<button onClick={()=>{
+
+              let currTaskArr = this.state.tasks
+              let filteredArr = currTaskArr.filter((element)=>{
+                return element!=el
+              })
+              this.setState({tasks: filteredArr});
+
+            }}> Delete</button></li>;
           })
         }
         </ul>

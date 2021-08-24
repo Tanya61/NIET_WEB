@@ -4,7 +4,10 @@ let App=()=> {
 
 let[count, setCount] = useState(0);  //used for state in function using hooks 
                                     //and we can write as many state as needed by writing like this multiple times.
-  console.log("render was called");
+
+let [process, setProcess] = useState("running");                                    
+console.log("render was called");
+
 
   // useEffect ek hook hai to functional component ke ander hi use hota hai
   //it takes 2 arguments=> function, arr [optional]
@@ -23,10 +26,20 @@ let[count, setCount] = useState(0);  //used for state in function using hooks
   // case 2: 
   // in this case you only give a function and no arr
   // useEffect will execute your function after every render, that is after first render and every re-render
+  //useEffect(()=>{
+  //  console.log("case 2 useEffect was called");
+  //})
+
+  // case 3:
+  // this useEffect will execute after first render 
+  // and also after the state variable which is being used changes 
+
   useEffect(()=>{
-    console.log("case 2 useEffect was called");
-  })
-  
+    let arr = process.split("i");
+    console.log(arr);
+
+  }, [process]);
+
   return (
     <div>
       <button onClick={()=>{
@@ -42,6 +55,12 @@ let[count, setCount] = useState(0);  //used for state in function using hooks
       >
         -
       </button>
+      <p>{process}</p>
+      <button
+          onClick={()=>{
+            setProcess("stop");
+          }}
+      >kill process</button>
     </div>
   );
 }
